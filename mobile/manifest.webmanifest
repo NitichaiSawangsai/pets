@@ -1,0 +1,9 @@
+{
+  "name": "Pocket Pals",
+  "short_name": "Pals",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fff8ea",
+  "theme_color": "#e85d75",
+  "icons": []
+}

@@ -1,0 +1,468 @@
+:root {
+  --ink: #20232d;
+  --muted: #69707e;
+  --line: rgba(32, 35, 45, 0.13);
+  --accent: #e85d75;
+  --mint: #4dbd98;
+  --gold: #e6a91f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: #fff8ea;
+  color: var(--ink);
+  font-family: ui-rounded, "SF Pro Rounded", "Avenir Next", system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+.app {
+  width: min(100%, 480px);
+  margin: 0 auto;
+  padding: 16px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 44px;
+}
+
+header strong {
+  font-size: 22px;
+}
+
+header span {
+  min-width: 76px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--line);
+  color: #704e00;
+  font-weight: 800;
+}
+
+.stage {
+  min-height: 260px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  position: relative;
+  isolation: isolate;
+}
+
+.pet {
+  width: 156px;
+  height: 136px;
+  display: grid;
+  place-items: center;
+  border-radius: 45% 45% 38% 38%;
+  background: #ffcf7d;
+  border: 4px solid #40312a;
+  font-size: 64px;
+  animation: bob 2.2s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+  will-change: transform, filter;
+}
+
+.stage p {
+  margin: 18px 0 0;
+  color: var(--muted);
+  min-height: 24px;
+  position: relative;
+  z-index: 4;
+}
+
+.effect-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  animation-delay: var(--delay);
+  animation-fill-mode: both;
+  text-shadow: 0 4px 12px rgba(32, 35, 45, 0.2);
+}
+
+.sick .pet {
+  filter: saturate(0.65) hue-rotate(-18deg);
+  animation: sick-idle 1.6s ease-in-out infinite;
+}
+
+.meters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.meter label {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.bar {
+  height: 9px;
+  margin-top: 5px;
+  border-radius: 999px;
+  background: rgba(32, 35, 45, 0.12);
+  overflow: hidden;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  background: var(--mint);
+}
+
+.actions,
+.shop {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 16px;
+}
+
+button {
+  min-height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+button:disabled {
+  opacity: 0.45;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.effect-feed {
+  animation: feed-chomp 760ms cubic-bezier(0.2, 1.7, 0.32, 1) both;
+}
+
+.effect-heal {
+  animation: heal-pulse 820ms ease both;
+}
+
+.effect-sick {
+  animation: sick-wobble 900ms ease both;
+}
+
+.effect-clean {
+  animation: clean-spark 760ms ease both;
+}
+
+.effect-rest {
+  animation: rest-sink 820ms ease both;
+}
+
+.effect-work,
+.effect-buy {
+  animation: coin-nod 720ms ease both;
+}
+
+.spin-hop {
+  animation: spin-hop 820ms cubic-bezier(0.2, 1.4, 0.3, 1) both;
+}
+
+.zigzag-dance {
+  animation: zigzag-dance 820ms ease both;
+}
+
+.star-jump {
+  animation: star-jump 860ms cubic-bezier(0.18, 1.55, 0.35, 1) both;
+}
+
+.wiggle-pop {
+  animation: wiggle-pop 720ms ease both;
+}
+
+.float-snack {
+  animation: float-snack 980ms ease-out both;
+}
+
+.confetti-pop {
+  animation: confetti-pop 900ms ease-out both;
+}
+
+.heal-swirl {
+  animation: heal-swirl 1000ms ease-out both;
+  color: var(--mint);
+}
+
+.bubble-rise {
+  animation: bubble-rise 1000ms ease-out both;
+  color: #43a6dd;
+}
+
+.sleep-float {
+  animation: sleep-float 1100ms ease-out both;
+  color: #7857d6;
+}
+
+.coin-bounce {
+  animation: coin-bounce 900ms ease-out both;
+  color: var(--gold);
+}
+
+@keyframes feed-chomp {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  28% {
+    transform: translateY(-8px) scale(1.12, 0.9);
+  }
+  52% {
+    transform: translateY(3px) scale(0.92, 1.08);
+  }
+  74% {
+    transform: translateY(-5px) scale(1.06);
+  }
+}
+
+@keyframes spin-hop {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  45% {
+    transform: translateY(-42px) rotate(180deg) scale(1.08);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg) scale(1);
+  }
+}
+
+@keyframes zigzag-dance {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0);
+  }
+  20% {
+    transform: translate(-28px, -12px) rotate(-10deg);
+  }
+  45% {
+    transform: translate(28px, -26px) rotate(12deg);
+  }
+  70% {
+    transform: translate(-16px, -8px) rotate(-7deg);
+  }
+}
+
+@keyframes star-jump {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(-50px) scale(0.88, 1.18);
+  }
+  58% {
+    transform: translateY(-18px) scale(1.16, 0.9);
+  }
+}
+
+@keyframes wiggle-pop {
+  0%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+  25% {
+    transform: rotate(-12deg) scale(1.08);
+  }
+  50% {
+    transform: rotate(12deg) scale(1.12);
+  }
+  75% {
+    transform: rotate(-7deg) scale(1.04);
+  }
+}
+
+@keyframes sick-idle {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+  50% {
+    transform: translateX(3px) rotate(1.8deg);
+  }
+}
+
+@keyframes sick-wobble {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+  20% {
+    transform: translateX(-7px) rotate(-4deg);
+  }
+  40% {
+    transform: translateX(7px) rotate(4deg);
+  }
+  60% {
+    transform: translateX(-4px) rotate(-2deg);
+  }
+}
+
+@keyframes heal-pulse {
+  0%,
+  100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  45% {
+    filter: brightness(1.18) saturate(1.25);
+    transform: scale(1.13);
+  }
+}
+
+@keyframes clean-spark {
+  0%,
+  100% {
+    filter: brightness(1);
+    transform: rotate(0);
+  }
+  50% {
+    filter: brightness(1.25);
+    transform: rotate(-6deg) scale(1.08);
+  }
+}
+
+@keyframes rest-sink {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  45% {
+    transform: translateY(16px) scale(1.08, 0.9);
+  }
+}
+
+@keyframes coin-nod {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  35% {
+    transform: translateY(-13px) rotate(-5deg);
+  }
+  70% {
+    transform: translateY(4px) rotate(4deg);
+  }
+}
+
+@keyframes float-snack {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--spin)) scale(1.15);
+  }
+}
+
+@keyframes confetti-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--spin)) scale(1.25);
+  }
+}
+
+@keyframes heal-swirl {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(0) scale(0.5);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(220deg) scale(1.2);
+  }
+}
+
+@keyframes bubble-rise {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -30%) scale(0.4);
+  }
+  25% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-70% + var(--y))) scale(1.3);
+  }
+}
+
+@keyframes sleep-float {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.1);
+  }
+}
+
+@keyframes coin-bounce {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20%) scale(0.3);
+  }
+  22% {
+    opacity: 1;
+  }
+  65% {
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), -50%) scale(0.9);
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "pocket-pals",
+  "version": "0.1.0",
+  "description": "A tiny Tamagotchi-like desktop pet for macOS with a mobile-ready PWA shell.",
+  "main": "src/main/main.cjs",
+  "private": true,
+  "scripts": {
+    "start": "env -u ELECTRON_RUN_AS_NODE electron .",
+    "test": "node --test tests/*.test.cjs",
+    "security:audit": "npm audit --audit-level=moderate",
+    "mobile:serve": "npx http-server mobile -p 4174 -c-1",
+    "desktop:dev": "env -u ELECTRON_RUN_AS_NODE electron ."
+  },
+  "keywords": [
+    "tamagotchi",
+    "desktop-pet",
+    "electron",
+    "pwa"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^40.10.2",
+    "http-server": "^14.1.1"
+  }
+}

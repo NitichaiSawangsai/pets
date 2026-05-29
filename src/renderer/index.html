@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <title>Pocket Pals</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell" id="app">
+      <section class="pet-card" aria-live="polite">
+        <div class="drag-zone" title="Drag to move"></div>
+        <div class="topbar">
+          <button class="icon-button" id="focusToggle" title="Focus mode" aria-label="Focus mode">◐</button>
+          <div class="coins" id="coins">0</div>
+          <button class="icon-button" id="soundToggle" title="Sound" aria-label="Sound">♪</button>
+        </div>
+
+        <div class="pet-stage" id="petStage">
+          <div class="pet-shadow"></div>
+          <div class="pet-body" id="petBody">
+            <div class="pet-face" id="petFace">🐱</div>
+          </div>
+          <div class="effect-layer" id="effectLayer" aria-hidden="true"></div>
+          <div class="speech" id="speech">...</div>
+        </div>
+
+        <div class="name-row">
+          <strong id="petName">Mochi</strong>
+          <span id="petMood">curious</span>
+        </div>
+
+        <div class="meters" id="meters"></div>
+
+        <nav class="actions" aria-label="Care actions">
+          <button data-action="feed" title="Feed">🍚</button>
+          <button data-action="play" title="Play">✦</button>
+          <button data-action="clean" title="Clean">◆</button>
+          <button data-action="rest" title="Rest">☾</button>
+          <button data-action="medicine" title="Medicine">＋</button>
+          <button data-action="work" title="Earn coins">$</button>
+        </nav>
+
+        <details class="drawer">
+          <summary>Shop</summary>
+          <div class="shop" id="shop"></div>
+        </details>
+
+        <details class="drawer">
+          <summary>Pets</summary>
+          <div class="pet-picker" id="petPicker"></div>
+        </details>
+      </section>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>

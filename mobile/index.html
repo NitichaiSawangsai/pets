@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <title>Pocket Pals Mobile</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <strong id="petName">Mochi</strong>
+        <span id="coins">$0</span>
+      </header>
+      <section class="stage">
+        <div class="pet" id="pet">🐱</div>
+        <div class="effect-layer" id="effectLayer" aria-hidden="true"></div>
+        <p id="message">...</p>
+      </section>
+      <section class="meters" id="meters"></section>
+      <nav class="actions">
+        <button data-action="feed">Feed</button>
+        <button data-action="play">Play</button>
+        <button data-action="clean">Clean</button>
+        <button data-action="rest">Rest</button>
+        <button data-action="medicine">Med</button>
+        <button data-action="work">Work</button>
+      </nav>
+      <section class="shop" id="shop"></section>
+    </main>
+    <script src="./mobile.js"></script>
+  </body>
+</html>

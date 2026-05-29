@@ -1,0 +1,643 @@
+:root {
+  color-scheme: light;
+  --ink: #1f2430;
+  --muted: #6c7280;
+  --panel: rgba(255, 255, 255, 0.88);
+  --line: rgba(31, 36, 48, 0.12);
+  --accent: #e85d75;
+  --mint: #4dbd98;
+  --gold: #e6a91f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+  color: var(--ink);
+  font-family: ui-rounded, "SF Pro Rounded", "Avenir Next", system-ui, sans-serif;
+  letter-spacing: 0;
+  user-select: none;
+}
+
+button,
+summary {
+  font: inherit;
+}
+
+.shell {
+  width: 100vw;
+  height: 100vh;
+  padding: 10px;
+}
+
+.pet-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 18px 42px rgba(26, 31, 43, 0.14);
+  backdrop-filter: blur(18px);
+  overflow: hidden;
+}
+
+.drag-zone {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 34px;
+  -webkit-app-region: drag;
+  z-index: 1;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: 36px 1fr 36px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.icon-button,
+.actions button,
+.shop button,
+.pet-picker button {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+
+.icon-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.icon-button.active {
+  border-color: rgba(77, 189, 152, 0.55);
+  background: #e8fff4;
+}
+
+.coins {
+  justify-self: center;
+  min-width: 72px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #fff7d6;
+  color: #664909;
+  font-weight: 800;
+}
+
+.pet-stage {
+  height: 118px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  isolation: isolate;
+}
+
+.pet-body {
+  width: 94px;
+  height: 82px;
+  border-radius: 45% 45% 38% 38%;
+  background: #ffcf7d;
+  border: 3px solid #40312a;
+  display: grid;
+  place-items: center;
+  animation: bob 2.2s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+  will-change: transform, filter;
+}
+
+.pet-body::before,
+.pet-body::after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  width: 28px;
+  height: 28px;
+  background: inherit;
+  border: 3px solid #40312a;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+.pet-body::before {
+  left: 12px;
+}
+
+.pet-body::after {
+  right: 12px;
+}
+
+.pet-face {
+  font-size: 38px;
+  transform: translateY(2px);
+}
+
+.pet-shadow {
+  position: absolute;
+  bottom: 9px;
+  width: 92px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(31, 36, 48, 0.14);
+}
+
+.speech {
+  position: absolute;
+  right: 12px;
+  top: 4px;
+  max-width: 116px;
+  min-height: 30px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--muted);
+  z-index: 4;
+}
+
+.effect-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.particle {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--accent);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  animation-delay: var(--delay);
+  animation-fill-mode: both;
+  text-shadow: 0 2px 8px rgba(31, 36, 48, 0.18);
+}
+
+.name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px 8px;
+}
+
+.name-row strong,
+.name-row span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.name-row span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.meters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  padding: 0 12px 10px;
+}
+
+.meter {
+  min-width: 0;
+}
+
+.meter label {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.bar {
+  height: 7px;
+  margin-top: 3px;
+  border-radius: 999px;
+  background: rgba(31, 36, 48, 0.1);
+  overflow: hidden;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--mint);
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+  padding: 0 10px 10px;
+}
+
+.actions button {
+  height: 34px;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.drawer {
+  border-top: 1px solid var(--line);
+}
+
+.drawer summary {
+  min-height: 31px;
+  padding: 7px 12px;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.shop,
+.pet-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 0 10px 10px;
+}
+
+.shop button,
+.pet-picker button {
+  min-height: 34px;
+  border-radius: 8px;
+  font-size: 11px;
+  line-height: 1.1;
+}
+
+.shop button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.focus .pet-card {
+  opacity: 0.52;
+}
+
+.focus .speech,
+.focus .drawer {
+  display: none;
+}
+
+.sick .pet-body {
+  filter: saturate(0.65) hue-rotate(-18deg);
+  animation: sick-idle 1.6s ease-in-out infinite;
+}
+
+.dead .pet-body {
+  animation: none;
+  transform: rotate(90deg);
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.effect-feed {
+  animation: feed-chomp 760ms cubic-bezier(0.2, 1.7, 0.32, 1) both;
+}
+
+.effect-heal {
+  animation: heal-pulse 820ms ease both;
+}
+
+.effect-sick {
+  animation: sick-wobble 900ms ease both;
+}
+
+.effect-clean {
+  animation: clean-spark 760ms ease both;
+}
+
+.effect-rest {
+  animation: rest-sink 820ms ease both;
+}
+
+.effect-work,
+.effect-buy {
+  animation: coin-nod 720ms ease both;
+}
+
+.effect-rebirth {
+  animation: rebirth-pop 900ms cubic-bezier(0.19, 1.6, 0.28, 1) both;
+}
+
+.spin-hop {
+  animation: spin-hop 820ms cubic-bezier(0.2, 1.4, 0.3, 1) both;
+}
+
+.zigzag-dance {
+  animation: zigzag-dance 820ms ease both;
+}
+
+.star-jump {
+  animation: star-jump 860ms cubic-bezier(0.18, 1.55, 0.35, 1) both;
+}
+
+.wiggle-pop {
+  animation: wiggle-pop 720ms ease both;
+}
+
+.float-snack {
+  animation: float-snack 980ms ease-out both;
+}
+
+.confetti-pop {
+  animation: confetti-pop 900ms ease-out both;
+}
+
+.heal-swirl {
+  animation: heal-swirl 1000ms ease-out both;
+  color: var(--mint);
+}
+
+.bubble-rise {
+  animation: bubble-rise 1000ms ease-out both;
+  color: #43a6dd;
+}
+
+.sleep-float {
+  animation: sleep-float 1100ms ease-out both;
+  color: #7857d6;
+}
+
+.coin-bounce {
+  animation: coin-bounce 900ms ease-out both;
+  color: var(--gold);
+}
+
+@keyframes feed-chomp {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  28% {
+    transform: translateY(-5px) scale(1.12, 0.9);
+  }
+  52% {
+    transform: translateY(2px) scale(0.92, 1.08);
+  }
+  74% {
+    transform: translateY(-3px) scale(1.06);
+  }
+}
+
+@keyframes spin-hop {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  45% {
+    transform: translateY(-28px) rotate(180deg) scale(1.08);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg) scale(1);
+  }
+}
+
+@keyframes zigzag-dance {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0);
+  }
+  20% {
+    transform: translate(-20px, -8px) rotate(-10deg);
+  }
+  45% {
+    transform: translate(18px, -18px) rotate(12deg);
+  }
+  70% {
+    transform: translate(-12px, -6px) rotate(-7deg);
+  }
+}
+
+@keyframes star-jump {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(-34px) scale(0.88, 1.18);
+  }
+  58% {
+    transform: translateY(-12px) scale(1.16, 0.9);
+  }
+}
+
+@keyframes wiggle-pop {
+  0%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+  25% {
+    transform: rotate(-12deg) scale(1.08);
+  }
+  50% {
+    transform: rotate(12deg) scale(1.12);
+  }
+  75% {
+    transform: rotate(-7deg) scale(1.04);
+  }
+}
+
+@keyframes sick-idle {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+  50% {
+    transform: translateX(2px) rotate(1.8deg);
+  }
+}
+
+@keyframes sick-wobble {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+  20% {
+    transform: translateX(-5px) rotate(-4deg);
+  }
+  40% {
+    transform: translateX(5px) rotate(4deg);
+  }
+  60% {
+    transform: translateX(-3px) rotate(-2deg);
+  }
+}
+
+@keyframes heal-pulse {
+  0%,
+  100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  45% {
+    filter: brightness(1.18) saturate(1.25);
+    transform: scale(1.13);
+  }
+}
+
+@keyframes clean-spark {
+  0%,
+  100% {
+    filter: brightness(1);
+    transform: rotate(0);
+  }
+  50% {
+    filter: brightness(1.25);
+    transform: rotate(-6deg) scale(1.08);
+  }
+}
+
+@keyframes rest-sink {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  45% {
+    transform: translateY(10px) scale(1.08, 0.9);
+  }
+}
+
+@keyframes coin-nod {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  35% {
+    transform: translateY(-9px) rotate(-5deg);
+  }
+  70% {
+    transform: translateY(3px) rotate(4deg);
+  }
+}
+
+@keyframes rebirth-pop {
+  0% {
+    transform: scale(0.1) rotate(-12deg);
+    filter: brightness(1.4);
+  }
+  70% {
+    transform: scale(1.18) rotate(6deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes float-snack {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--spin)) scale(1.15);
+  }
+}
+
+@keyframes confetti-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--spin)) scale(1.25);
+  }
+}
+
+@keyframes heal-swirl {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(0) scale(0.5);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(220deg) scale(1.2);
+  }
+}
+
+@keyframes bubble-rise {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -30%) scale(0.4);
+  }
+  25% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-70% + var(--y))) scale(1.3);
+  }
+}
+
+@keyframes sleep-float {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.1);
+  }
+}
+
+@keyframes coin-bounce {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20%) scale(0.3);
+  }
+  22% {
+    opacity: 1;
+  }
+  65% {
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), -50%) scale(0.9);
+  }
+}
